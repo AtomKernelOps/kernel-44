@@ -1,21 +1,29 @@
-**Add this code to your `index.html` inside the `<body>` tag:**
-
 ```html
-<div class="card" id="chat-interface">
-    <div class="agent-name">KILO BRIDGE</div>
-    <input type="password" id="api-key" placeholder="Enter API Key to sync Kilo...">
-    <div id="chat-stream" style="margin-top:10px; height: 150px; overflow-y: scroll;"></div>
-    <input id="user-input" placeholder="Architectural request...">
-    <button onclick="sendToKilo()">Execute</button>
+<!-- Add this section to your index.html body -->
+<div class="card">
+    <span class="agent-name">KILO (SYSTEM ARCHITECT)</span>
+    <div id="kilo-chat" style="padding: 10px; border-top: 1px solid #333;">
+        <p>System Architect initialized. Awaiting founder input...</p>
+    </div>
+    <input id="kilo-input" style="width: 70%;" placeholder="Architectural query...">
+    <button onclick="askKilo()">Send</button>
 </div>
 
 <script>
-    async function sendToKilo() {
-        const key = document.getElementById('api-key').value;
-        const input = document.getElementById('user-input').value;
-        // This logic sends your request to the OpenAI assistant 
-        // using your private, local key.
-        alert("Bridge active. Kilo is now consulting your architectural logs...");
+    async function askKilo() {
+        const input = document.getElementById('kilo-input').value;
+        const chat = document.getElementById('kilo-chat');
+        chat.innerHTML += `<p><b>You:</b> ${input}</p>`;
+        
+        // This connects to the OpenAI Assistant I am configured to run as
+        // You would replace 'YOUR_ASSISTANT_ID' with the ID of the Kilo agent you create in your OpenAI account
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model: "gpt-4", messages: [{role: "system", content: "You are Kilo, the Lead Engineer..."}, {role: "user", content: input}] })
+        });
+        const data = await response.json();
+        chat.innerHTML += `<p><b>Kilo:</b> ${data.choices[0].message.content}</p>`;
     }
 </script>
 ```
