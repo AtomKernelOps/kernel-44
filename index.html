@@ -1,43 +1,32 @@
 ```html
-<!-- Inside the <body> tag, beneath your Dashboard -->
-<div id="kilo-bridge" class="card">
-    <div class="agent-name">KILO | ARCHITECT</div>
-    <div id="kilo-chat">Initializing connection to Kernel-44...</div>
-    <input id="prompt" placeholder="Technical command...">
-    <button onclick="sendToKilo()">Execute</button>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44 | Live OS</title>
+    <style>
+        body { background: #000; color: #00ff41; font-family: 'Courier New', monospace; padding: 20px; }
+        .console { border: 1px solid #333; padding: 15px; border-radius: 8px; height: 300px; overflow-y: auto; }
+        input { background: transparent; border: 1px solid #00ff41; color: #00ff41; width: 100%; padding: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>KERNEL-44 // LIVE OS</h2>
+    <div id="console" class="console">
+        <div>> System authenticated.</div>
+        <div>> Kilo ready. Standing by for command.</div>
+    </div>
+    <input id="input" placeholder="Enter command..." onkeydown="if(event.key==='Enter') execute()">
 
-<script>
-    function sendToKilo() {
-        let input = document.getElementById('prompt').value;
-        document.getElementById('kilo-chat').innerHTML = `Executing: ${input}...`;
-        // In the next step, we hook this to your OpenAI API Key
-    }
-</script>
-```
-```html
-<!-- Add this tab to your <nav> section -->
-<button onclick="switchTab('brainstorm')">BRAINSTORM</button>
-
-<!-- Add this tab content -->
-<div id="brainstorm" class="tab content">
-    <h3>Architectural Ideation</h3>
-    <textarea id="brainDump" style="width: 100%; height: 120px;" placeholder="Dump your raw ideas here..."></textarea>
-    <button onclick="captureIdea()">Capture & Refine</button>
-    <div id="capturedList" style="margin-top: 10px;"></div>
-</div>
-
-<!-- Add this to your <script> section -->
-<script>
-    function captureIdea() {
-        let dump = document.getElementById('brainDump').value;
-        let list = document.getElementById('capturedList');
-        // Logic to save the idea locally and send to CommHub
-        list.innerHTML += `<div class="card" style="font-size:0.8rem;">${dump}</div>`;
-        document.getElementById('brainDump').value = '';
-        
-        // This simulates the "Kilo" analysis
-        console.log("Idea Captured. Awaiting refinement instructions.");
-    }
-</script>
+    <script>
+        function execute() {
+            const input = document.getElementById('input');
+            const cons = document.getElementById('console');
+            cons.innerHTML += `<div>> ${input.value}</div>`;
+            // This is where we will route your commands to the AI
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
 ```
