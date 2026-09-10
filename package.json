@@ -1,0 +1,12 @@
+```json
+{
+  "name": "kernel-44",
+  "version": "1.0.0",
+  "dependencies": {
+    "vite": "latest"
+  },
+  "scripts": {
+    "build": "vite build"
+  }
+}
+```
