@@ -1,29 +1,31 @@
 ```html
-<!-- Add this section to your index.html body -->
-<div class="card">
-    <span class="agent-name">KILO (SYSTEM ARCHITECT)</span>
-    <div id="kilo-chat" style="padding: 10px; border-top: 1px solid #333;">
-        <p>System Architect initialized. Awaiting founder input...</p>
-    </div>
-    <input id="kilo-input" style="width: 70%;" placeholder="Architectural query...">
-    <button onclick="askKilo()">Send</button>
-</div>
-
-<script>
-    async function askKilo() {
-        const input = document.getElementById('kilo-input').value;
-        const chat = document.getElementById('kilo-chat');
-        chat.innerHTML += `<p><b>You:</b> ${input}</p>`;
-        
-        // This connects to the OpenAI Assistant I am configured to run as
-        // You would replace 'YOUR_ASSISTANT_ID' with the ID of the Kilo agent you create in your OpenAI account
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ model: "gpt-4", messages: [{role: "system", content: "You are Kilo, the Lead Engineer..."}, {role: "user", content: input}] })
-        });
-        const data = await response.json();
-        chat.innerHTML += `<p><b>Kilo:</b> ${data.choices[0].message.content}</p>`;
-    }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44 | AI OS</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
+        .tab { display: none; } .active { display: block; }
+        .card { background: #111; padding: 15px; border-radius: 12px; border: 1px solid #333; margin-top: 15px; }
+        nav { display: flex; gap: 10px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        button { background: #222; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 6px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Kernel-44</h1>
+    <nav>
+        <button onclick="show('hub')">HUB</button>
+        <button onclick="show('build')">BUILD</button>
+    </nav>
+    <div id="hub" class="tab active card"><h3>KILO (ENG)</h3><p>System operational. I am live in your Kernel.</p></div>
+    <div id="build" class="tab card"><h3>Blueprint Engine</h3><p>Ready for your next business idea.</p></div>
+    <script>
+        function show(id) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>
 ```
