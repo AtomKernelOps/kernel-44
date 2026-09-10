@@ -32,3 +32,24 @@
 </body>
 </html>
 ```
+```html
+<div class="card">
+    <input id="q" style="width:70%" placeholder="Query the OS...">
+    <button onclick="queryOS()">Run</button>
+    <div id="os-response" style="margin-top:10px; font-size: 0.8rem; color: #aaa;"></div>
+</div>
+
+<script>
+    const KILO_LIBRARY = {
+        "status": "System sovereign. All modules online. No external dependencies.",
+        "architect": "Kilo | The Architectural Artist. Vision: Modular, atomic, scalable.",
+        "next": "Deploy the 'Task-Tracker' Atom to the index.html file."
+    };
+
+    function queryOS() {
+        let q = document.getElementById('q').value.toLowerCase();
+        let res = KILO_LIBRARY[q] || "Query not found in local library.";
+        document.getElementById('os-response').innerText = "> " + res;
+    }
+</script>
+```
