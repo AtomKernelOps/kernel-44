@@ -1,46 +1,15 @@
 ```html
-<!-- Kernel-44 | Persistent Agentic Bridge -->
-<div class="card">
-    <div id="chat-history" style="height: 200px; overflow-y: scroll; border-bottom: 1px solid #444;"></div>
-    <input id="chat-input" placeholder="Consult Kilo..." style="width: 70%;">
-    <button onclick="sendMessage()">Send</button>
+<!-- Add this section to your <main> area in index.html -->
+<div id="kilo-terminal" class="card">
+    <div class="agent-name">KILO (ENG) | STANDING BY</div>
+    <div id="kilo-response">"System is live. Awaiting structural instructions."</div>
 </div>
 
 <script>
-    // YOUR API KEY GOES HERE (or better, keep reading for Vercel instructions)
-    const API_KEY = "npx plugins add vercel/vercel-plugin"; 
-
-    async function sendMessage() {
-        const input = document.getElementById('chat-input').value;
-        const history = document.getElementById('chat-history');
-        history.innerHTML += `<div><b>Founder:</b> ${input}</div>`;
-        
-        // This connects to the OpenAI API to summon Kilo
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                model: "gpt-4",
-                messages: [{role: "system", content: "You are Kilo, the Architectural Artist... [Paste Kilo Identity Here]"}, {role: "user", content: input}]
-            })
-        });
-        const data = await response.json();
-        history.innerHTML += `<div><b>Kilo:</b> ${data.choices[0].message.content}</div>`;
+    // This is the bridge for our future real-time communication
+    function triggerArchitecturalSync(command) {
+        document.getElementById('kilo-response').innerText = `Processing: ${command}...`;
+        // In the next phase, we connect this to the OpenAI API or your chosen agent link
     }
 </script>
 ```
-
-### **2. The "Fortress" Integration (CRITICAL)**
-If you paste your API key directly into the file, it is technically "exposed" to anyone who knows your link. As your Lead Engineer, I insist on a more secure path:
-
-1. **Vercel Environment Variables:** 
-   * Go to your **Vercel Project Dashboard** > **Settings** > **Environment Variables**.
-   * Add a new variable: Name it `OPENAI_API_KEY` and paste your key in the value box.
-   * This keeps the key invisible to the public, and Vercel will inject it into your app when it deploys.
-
-2. **Final Build:** Once you add the Environment Variable in Vercel, redeploy your project. The app will now pull the key directly from the environment, keeping it fully secure.
-
-### **Engineering Summary**
-*   **Identity:** Anchored.
-*   **Infrastructure:** Live.
-*   **Communication:** Autonomous.
