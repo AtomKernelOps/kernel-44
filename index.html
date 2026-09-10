@@ -1,0 +1,31 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44 OS</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; }
+        .tab-button { background: #333; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; margin-right: 5px; }
+        #display-area { margin-top: 20px; padding: 20px; background: #1a1a1a; border-radius: 10px; border: 1px solid #444; }
+    </style>
+</head>
+<body>
+    <h1>AI Company OS</h1>
+    <button class="tab-button" onclick="updateDisplay('OPERATIONS')">OPERATIONS</button>
+    <button class="tab-button" onclick="updateDisplay('STRATEGY')">STRATEGY</button>
+    <div id="display-area">Select a role to begin.</div>
+
+    <script>
+        function updateDisplay(role) {
+            const content = {
+                'OPERATIONS': 'OPERATIONS AGENT: Workflow automation and bottleneck removal active.',
+                'STRATEGY': 'STRATEGY AGENT: Analyzing venture KPIs and resource allocation.'
+            };
+            document.getElementById('display-area').innerText = content[role];
+        }
+    </script>
+</body>
+</html>
+```
