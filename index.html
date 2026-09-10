@@ -67,3 +67,20 @@
     }
 </script>
 ```
+```html
+<!-- Add this section inside your <body> under the CommHub stream -->
+<div class="card">
+    <input id="kilo-input" style="width: 70%; padding: 8px;" placeholder="Message Kilo...">
+    <button onclick="sendToKilo()">SEND</button>
+</div>
+
+<script>
+    function sendToKilo() {
+        let msg = document.getElementById('kilo-input').value;
+        // This simulates the internal routing of your commands
+        console.log("Routing to Kilo Engine:", msg);
+        alert("Kilo Engine Received: " + msg + "\n(Integration with API Key required to process response)");
+        document.getElementById('kilo-input').value = '';
+    }
+</script>
+```
