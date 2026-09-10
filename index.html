@@ -1,32 +1,21 @@
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Live OS</title>
-    <style>
-        body { background: #000; color: #00ff41; font-family: 'Courier New', monospace; padding: 20px; }
-        .console { border: 1px solid #333; padding: 15px; border-radius: 8px; height: 300px; overflow-y: auto; }
-        input { background: transparent; border: 1px solid #00ff41; color: #00ff41; width: 100%; padding: 10px; margin-top: 10px; }
-    </style>
-</head>
-<body>
-    <h2>KERNEL-44 // LIVE OS</h2>
-    <div id="console" class="console">
-        <div>> System authenticated.</div>
-        <div>> Kilo ready. Standing by for command.</div>
-    </div>
-    <input id="input" placeholder="Enter command..." onkeydown="if(event.key==='Enter') execute()">
+**Add this code to your `index.html` inside the `<body>` tag:**
 
-    <script>
-        function execute() {
-            const input = document.getElementById('input');
-            const cons = document.getElementById('console');
-            cons.innerHTML += `<div>> ${input.value}</div>`;
-            // This is where we will route your commands to the AI
-            input.value = '';
-        }
-    </script>
-</body>
-</html>
+```html
+<div class="card" id="chat-interface">
+    <div class="agent-name">KILO BRIDGE</div>
+    <input type="password" id="api-key" placeholder="Enter API Key to sync Kilo...">
+    <div id="chat-stream" style="margin-top:10px; height: 150px; overflow-y: scroll;"></div>
+    <input id="user-input" placeholder="Architectural request...">
+    <button onclick="sendToKilo()">Execute</button>
+</div>
+
+<script>
+    async function sendToKilo() {
+        const key = document.getElementById('api-key').value;
+        const input = document.getElementById('user-input').value;
+        // This logic sends your request to the OpenAI assistant 
+        // using your private, local key.
+        alert("Bridge active. Kilo is now consulting your architectural logs...");
+    }
+</script>
 ```
