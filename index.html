@@ -3,29 +3,25 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | AI OS</title>
+    <title>VELOCITY OS</title>
     <style>
+        :root { --accent: #007aff; }
         body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
-        .tab { display: none; } .active { display: block; }
-        .card { background: #111; padding: 15px; border-radius: 12px; border: 1px solid #333; margin-top: 15px; }
-        nav { display: flex; gap: 10px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        button { background: #222; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 6px; cursor: pointer; }
+        .logo { font-weight: 800; letter-spacing: -1px; margin-bottom: 30px; font-size: 1.5rem; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn { background: #111; border: 1px solid #333; padding: 20px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .btn:hover { border-color: var(--accent); }
     </style>
 </head>
 <body>
-    <h1>Kernel-44</h1>
-    <nav>
-        <button onclick="show('hub')">HUB</button>
-        <button onclick="show('build')">BUILD</button>
-    </nav>
-    <div id="hub" class="tab active card"><h3>KILO (ENG)</h3><p>System operational. I am live in your Kernel.</p></div>
-    <div id="build" class="tab card"><h3>Blueprint Engine</h3><p>Ready for your next business idea.</p></div>
-    <script>
-        function show(id) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
-    </script>
+    <div class="logo">VELOCITY<span style="color:var(--accent)">OS</span></div>
+    
+    <div class="grid">
+        <div class="btn" onclick="alert('Strategy Node Initializing...')">STRATEGY</div>
+        <div class="btn" onclick="alert('Operations Node Initializing...')">OPS</div>
+        <div class="btn" onclick="alert('Capital Node Initializing...')">CAPITAL</div>
+        <div class="btn" onclick="alert('Launch Sequence...')">LAUNCH</div>
+    </div>
 </body>
 </html>
 ```
