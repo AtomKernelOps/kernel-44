@@ -1,25 +1,38 @@
 ```html
-<!-- Replace your <div id="hub"> section with this -->
-<div id="hub" class="tab active">
-    <h3>Kilo | Lead Architect</h3>
-    <div id="chat-stream" style="height: 250px; overflow-y: scroll; border: 1px solid #333; padding: 10px;"></div>
-    <input id="user-input" style="width: 70%;" placeholder="Architectural query...">
-    <button onclick="sendMessage()">Send</button>
+<!-- Add this section to your <body> -->
+<div class="card">
+    <div class="agent-name">KILO TERMINAL</div>
+    <div id="terminal-stream" style="height: 150px; overflow-y: auto; font-size: 0.8rem;"></div>
+    <input id="kilo-input" style="width: 70%;" placeholder="Execute command...">
+    <button onclick="sendToKilo()">Execute</button>
 </div>
 
 <script>
-    async function sendMessage() {
-        const input = document.getElementById('user-input').value;
-        // This is where your API Key integration lives
-        // I will provide the full secure handler in our next step
-        console.log("Sending to Kernel:", input);
+    async function sendToKilo() {
+        const input = document.getElementById('kilo-input').value;
+        const stream = document.getElementById('terminal-stream');
+        
+        stream.innerHTML += `<div>> ${input}</div>`;
+        
+        // This connects your UI to the Kilo Persona
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_ACTUAL_API_KEY' // Paste key here
+            },
+            body: JSON.stringify({
+                model: "gpt-4o",
+                messages: [
+                    {role: "system", content: "You are Kilo, the Architectural Artist. Your instructions are in KILO_IDENTITY.md."},
+                    {role: "user", content: input}
+                ]
+            })
+        });
+        
+        const data = await response.json();
+        stream.innerHTML += `<div style="color:#00ff41">${data.choices[0].message.content}</div>`;
+        document.getElementById('kilo-input').value = '';
     }
 </script>
-```
-```html
-<div class="card" id="chat-box">
-    <div id="messages" style="height: 150px; overflow-y: scroll; margin-bottom: 10px;"></div>
-    <input id="user-input" placeholder="Consult Kilo...">
-    <button onclick="sendMessage()">Send</button>
-</div>
 ```
