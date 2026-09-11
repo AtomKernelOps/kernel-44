@@ -1,37 +1,18 @@
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 OS</title>
-    <style>
-        body { background: #000; color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 20px; }
-        .card { border: 1px solid #333; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
-        .btn { background: #007aff; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-        #stream { height: 200px; overflow-y: scroll; border: 1px solid #222; padding: 10px; font-size: 0.8rem; }
-    </style>
-</head>
-<body>
-    <h1>Kernel-44 OS</h1>
-    <div class="card">
-        <h3>Command Stream</h3>
-        <div id="stream"></div>
-        <input id="input" style="width: 70%;" placeholder="Execute command...">
-        <button class="btn" onclick="execute()">Run</button>
-    </div>
+<!-- Replace your <div id="hub"> section with this -->
+<div id="hub" class="tab active">
+    <h3>Kilo | Lead Architect</h3>
+    <div id="chat-stream" style="height: 250px; overflow-y: scroll; border: 1px solid #333; padding: 10px;"></div>
+    <input id="user-input" style="width: 70%;" placeholder="Architectural query...">
+    <button onclick="sendMessage()">Send</button>
+</div>
 
-    <script>
-        function execute() {
-            const input = document.getElementById('input').value;
-            const stream = document.getElementById('stream');
-            stream.innerHTML += `<div>> ${input}</div>`;
-            document.getElementById('input').value = '';
-            // Data is saved in the browser so it doesn't get lost
-            localStorage.setItem('kernel_log', stream.innerHTML);
-        }
-        // Load logs on start
-        document.getElementById('stream').innerHTML = localStorage.getItem('kernel_log') || "System ready.";
-    </script>
-</body>
-</html>
+<script>
+    async function sendMessage() {
+        const input = document.getElementById('user-input').value;
+        // This is where your API Key integration lives
+        // I will provide the full secure handler in our next step
+        console.log("Sending to Kernel:", input);
+    }
+</script>
 ```
