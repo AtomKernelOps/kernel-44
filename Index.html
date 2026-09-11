@@ -21,3 +21,19 @@
     }
 </script>
 ```
+```javascript
+<script>
+    function logToStream(msg) {
+        const stream = document.getElementById('stream');
+        const entry = document.createElement('div');
+        entry.innerHTML = `> ${msg}`;
+        stream.prepend(entry); // Newest logs at the top
+    }
+
+    // Simulate system activity
+    setInterval(() => {
+        const logs = ["Syncing Atoms...", "Establishing neural handshake...", "Kernel-44 stable."];
+        logToStream(logs[Math.floor(Math.random() * logs.length)]);
+    }, 4000);
+</script>
+```
