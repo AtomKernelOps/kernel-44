@@ -1,48 +1,37 @@
 ```html
-<!-- Add this section to your index.html inside the <body> -->
-<div class="card">
-    <div class="agent-name">KILO: LIVE BRAIN</div>
-    <div id="chat-window" style="height: 150px; overflow-y: auto; margin: 10px 0; background: #000; border: 1px solid #333; padding: 5px; font-size: 0.8rem;">
-        <p>Awaiting system handshake...</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44 OS</title>
+    <style>
+        body { background: #000; color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 20px; }
+        .card { border: 1px solid #333; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .btn { background: #007aff; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        #stream { height: 200px; overflow-y: scroll; border: 1px solid #222; padding: 10px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <h1>Kernel-44 OS</h1>
+    <div class="card">
+        <h3>Command Stream</h3>
+        <div id="stream"></div>
+        <input id="input" style="width: 70%;" placeholder="Execute command...">
+        <button class="btn" onclick="execute()">Run</button>
     </div>
-    <input id="user-input" style="width: 70%;" placeholder="Command the architect...">
-    <button onclick="talkToBrain()">Send</button>
-</div>
 
-<script>
-    async function talkToBrain() {
-        const input = document.getElementById('user-input').value;
-        const chat = document.getElementById('chat-window');
-        chat.innerHTML += `<p style="color:#aaa;">You: ${input}</p>`;
-        
-        // This is where we link your API KEY to send the message to the "Brain"
-        // In a live OS, we connect this to your OpenAI Assistant ID
-        chat.innerHTML += `<p style="color:#00ff41;">Kilo: Processing your architectural request...</p>`;
-        document.getElementById('user-input').value = '';
-    }
-</script>
-```
-**Add this to your HTML Body:**
-```html
-<div class="card">
-    <div id="kilo-terminal" class="stream">
-        <div class="agent">KILO: System online. Awaiting tactical instructions.</div>
-    </div>
-    <input id="kilo-input" placeholder="Architectural query...">
-    <button onclick="sendToKilo()">Execute</button>
-</div>
-```
-
-**Add this logic to your `<script>`:**
-```javascript
-async function sendToKilo() {
-    const input = document.getElementById('kilo-input').value;
-    // This calls your backend/Vercel function that uses the API Key
-    const response = await fetch('/api/chat', {
-        method: 'POST',
-        body: JSON.stringify({ message: input })
-    });
-    const data = await response.json();
-    document.getElementById('kilo-terminal').innerHTML += `<div>Founder: ${input}</div><div>Kilo: ${data.reply}</div>`;
-}
+    <script>
+        function execute() {
+            const input = document.getElementById('input').value;
+            const stream = document.getElementById('stream');
+            stream.innerHTML += `<div>> ${input}</div>`;
+            document.getElementById('input').value = '';
+            // Data is saved in the browser so it doesn't get lost
+            localStorage.setItem('kernel_log', stream.innerHTML);
+        }
+        // Load logs on start
+        document.getElementById('stream').innerHTML = localStorage.getItem('kernel_log') || "System ready.";
+    </script>
+</body>
+</html>
 ```
