@@ -1,45 +1,34 @@
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Live Terminal</title>
-    <style>
-        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; margin: 0; }
-        .terminal { height: 70vh; overflow-y: auto; background: #111; padding: 15px; border-radius: 10px; border: 1px solid #333; margin-bottom: 10px; }
-        .input-area { display: flex; gap: 10px; }
-        input { flex: 1; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #222; color: #fff; }
-        .msg { margin-bottom: 10px; font-size: 0.9rem; }
-        .agent-kilo { color: #00ff41; }
-        .agent-founder { color: #007aff; }
-    </style>
-</head>
-<body>
-    <h1>Kernel-44</h1>
-    <div id="terminal" class="terminal">
-        <div class="msg"><span class="agent-kilo">KILO:</span> System bridge active. Standing by for architectural input.</div>
+<!-- Add this section to your index.html inside the <body> -->
+<div class="card">
+    <div class="agent-name">KILO: LIVE BRAIN</div>
+    <div id="chat-window" style="height: 150px; overflow-y: auto; margin: 10px 0; background: #000; border: 1px solid #333; padding: 5px; font-size: 0.8rem;">
+        <p>Awaiting system handshake...</p>
     </div>
-    <div class="input-area">
-        <input id="prompt" placeholder="Command for Kilo...">
-        <button onclick="sendPrompt()">SEND</button>
-    </div>
+    <input id="user-input" style="width: 70%;" placeholder="Command the architect...">
+    <button onclick="talkToBrain()">Send</button>
+</div>
 
-    <script>
-        function sendPrompt() {
-            const input = document.getElementById('prompt');
-            const terminal = document.getElementById('terminal');
-            if (!input.value) return;
-            
-            terminal.innerHTML += `<div class="msg"><span class="agent-founder">YOU:</span> ${input.value}</div>`;
-            
-            // Engineering Note: This is where we will hook the OpenAI/Agent API
-            terminal.innerHTML += `<div class="msg"><span class="agent-kilo">KILO:</span> Processing request... I am currently hard-coded, but link your API key for full neural integration.</div>`;
-            
-            input.value = '';
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-    </script>
-</body>
-</html>
+<script>
+    async function talkToBrain() {
+        const input = document.getElementById('user-input').value;
+        const chat = document.getElementById('chat-window');
+        chat.innerHTML += `<p style="color:#aaa;">You: ${input}</p>`;
+        
+        // This is where we link your API KEY to send the message to the "Brain"
+        // In a live OS, we connect this to your OpenAI Assistant ID
+        chat.innerHTML += `<p style="color:#00ff41;">Kilo: Processing your architectural request...</p>`;
+        document.getElementById('user-input').value = '';
+    }
+</script>
 ```
 
+### **The Three-Step Deployment for the "Live Brain"**
+
+1.  **The Brain (OpenAI Assistant):**
+    *   Go to [platform.openai.com/assistants](https://platform.openai.com/assistants).
+    *   Click **"Create."**
+    *   **Name it:** `Kernel-44 Brain`.
+    *   **Instructions:** Paste the **"Architectural Artist"** profile I wrote for you earlier into the "Instructions" box.
+    *   **Model:** Select `gpt-4o`.
+    *   **Copy the Assistant ID:** It looks like `asst_abc123...`
