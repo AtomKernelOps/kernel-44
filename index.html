@@ -39,3 +39,22 @@
 </body>
 </html>
 ```
+```javascript
+<script>
+    async function sendMessage() {
+        const input = document.querySelector('input').value;
+        const hub = document.getElementById('hub'); // Assuming your box is ID 'hub'
+        
+        // Add your message to the screen
+        hub.innerHTML += `<div>> You: ${input}</div>`;
+        
+        // This is where we would call the AI API
+        // For now, I am simulating the connection so you see it work
+        setTimeout(() => {
+            hub.innerHTML += `<div>> Kilo: I am receiving your data stream, Founder. Integrating the logic now.</div>`;
+        }, 1000);
+        
+        document.querySelector('input').value = '';
+    }
+</script>
+```
