@@ -1,21 +1,41 @@
 ```html
-<!-- Add this into your <div id="hub" class="tab active"> section -->
-<div id="chat-container">
-    <div id="messages" style="height: 200px; overflow-y: auto; border: 1px solid #333; margin-bottom: 10px;"></div>
-    <input id="user-input" style="width: 70%;" placeholder="Command Kilo...">
-    <button onclick="sendToKilo()">Execute</button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44 | AI OS</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
+        .card { background: #1a1a1a; padding: 15px; border-radius: 12px; border: 1px solid #333; margin-bottom: 10px; }
+        .nav-btn { background: #222; border: 1px solid #444; color: #fff; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
+        #chat-window { height: 200px; overflow-y: scroll; border: 1px solid #333; padding: 10px; border-radius: 8px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Kernel-44 OS</h1>
+    <nav>
+        <button class="nav-btn" onclick="alert('Operations Mode Active')">OPS</button>
+        <button class="nav-btn" onclick="alert('Strategy Mode Active')">STRAT</button>
+    </nav>
+    
+    <div class="card">
+        <h3>Live Command Hub</h3>
+        <div id="chat-window">
+            <p>> Kilo: Architectural bridge initialized. Standing by.</p>
+        </div>
+        <input id="user-input" style="width: 70%; padding: 8px;" placeholder="Message Kilo...">
+        <button onclick="sendMsg()">Send</button>
+    </div>
 
-<script>
-    // In a production environment, this would call your protected API endpoint
-    async function sendToKilo() {
-        const input = document.getElementById('user-input').value;
-        const messages = document.getElementById('messages');
-        messages.innerHTML += `<div><b>You:</b> ${input}</div>`;
-        
-        // This simulates the 'handshake' with your Kilo-Identity
-        messages.innerHTML += `<div><b>Kilo:</b> Analyzing business feasibility for: ${input}...</div>`;
-        document.getElementById('user-input').value = '';
-    }
-</script>
+    <script>
+        function sendMsg() {
+            let input = document.getElementById('user-input');
+            let window = document.getElementById('chat-window');
+            window.innerHTML += `<p>> You: ${input.value}</p>`;
+            // Future bridge to OpenAI API goes here
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
 ```
