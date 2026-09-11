@@ -1,0 +1,23 @@
+```html
+<!-- Add this where your Command Stream used to be -->
+<div id="ark-portal" class="card">
+    <div class="agent-name">ARK | LEAD ENGINEER</div>
+    <div id="chat-window" style="height: 250px; overflow-y: auto; margin: 10px 0; border: 1px solid #333; padding: 5px; font-size: 0.8rem;">
+        Ark initialized. I am now living inside your OS.
+    </div>
+    <input id="user-input" style="width: 70%; padding: 5px;" placeholder="Message Ark...">
+    <button onclick="sendToArk()">Send</button>
+</div>
+
+<script>
+    function sendToArk() {
+        let msg = document.getElementById('user-input').value;
+        let window = document.getElementById('chat-window');
+        window.innerHTML += `<div style="color: #aaa;">You: ${msg}</div>`;
+        document.getElementById('user-input').value = '';
+        
+        // This is where we will hook your API Key to process the response
+        window.innerHTML += `<div style="color: #00ff41;">Ark: Architectural command received. Processing...</div>`;
+    }
+</script>
+```
