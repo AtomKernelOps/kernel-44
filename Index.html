@@ -22,13 +22,27 @@
     }
 </script>
 ```
+**Add this to your HTML Body:**
+```html
+<div class="card">
+    <div id="kilo-terminal" class="stream">
+        <div class="agent">KILO: System online. Awaiting tactical instructions.</div>
+    </div>
+    <input id="kilo-input" placeholder="Architectural query...">
+    <button onclick="sendToKilo()">Execute</button>
+</div>
+```
 
-### **The Three-Step Deployment for the "Live Brain"**
-
-1.  **The Brain (OpenAI Assistant):**
-    *   Go to [platform.openai.com/assistants](https://platform.openai.com/assistants).
-    *   Click **"Create."**
-    *   **Name it:** `Kernel-44 Brain`.
-    *   **Instructions:** Paste the **"Architectural Artist"** profile I wrote for you earlier into the "Instructions" box.
-    *   **Model:** Select `gpt-4o`.
-    *   **Copy the Assistant ID:** It looks like `asst_abc123...`
+**Add this logic to your `<script>`:**
+```javascript
+async function sendToKilo() {
+    const input = document.getElementById('kilo-input').value;
+    // This calls your backend/Vercel function that uses the API Key
+    const response = await fetch('/api/chat', {
+        method: 'POST',
+        body: JSON.stringify({ message: input })
+    });
+    const data = await response.json();
+    document.getElementById('kilo-terminal').innerHTML += `<div>Founder: ${input}</div><div>Kilo: ${data.reply}</div>`;
+}
+```
