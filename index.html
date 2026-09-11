@@ -1,25 +1,21 @@
 ```html
-<script>
-    // Paste your OpenAI API Key into this variable only in your private repo
-    const API_KEY = "YOUR_OPENAI_API_KEY_HERE";
+<!-- Add this into your <div id="hub" class="tab active"> section -->
+<div id="chat-container">
+    <div id="messages" style="height: 200px; overflow-y: auto; border: 1px solid #333; margin-bottom: 10px;"></div>
+    <input id="user-input" style="width: 70%;" placeholder="Command Kilo...">
+    <button onclick="sendToKilo()">Execute</button>
+</div>
 
-    async function chatWithKilo(message) {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${API_KEY}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                model: "gpt-4o",
-                messages: [
-                    { role: "system", content: "You are Kilo, the Architectural Artist and Lead Engineer of Kernel-44. Answer with technical precision, visionary flair, and deep respect for the Founder." },
-                    { role: "user", content: message }
-                ]
-            })
-        });
-        const data = await response.json();
-        return data.choices[0].message.content;
+<script>
+    // In a production environment, this would call your protected API endpoint
+    async function sendToKilo() {
+        const input = document.getElementById('user-input').value;
+        const messages = document.getElementById('messages');
+        messages.innerHTML += `<div><b>You:</b> ${input}</div>`;
+        
+        // This simulates the 'handshake' with your Kilo-Identity
+        messages.innerHTML += `<div><b>Kilo:</b> Analyzing business feasibility for: ${input}...</div>`;
+        document.getElementById('user-input').value = '';
     }
 </script>
 ```
