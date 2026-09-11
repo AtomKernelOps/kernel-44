@@ -58,3 +58,36 @@
     }
 </script>
 ```
+```html
+<!-- Add this section to your index.html -->
+<div class="card">
+    <div id="chat-stream" style="height: 200px; overflow-y: auto; border-bottom: 1px solid #444; margin-bottom: 10px;"></div>
+    <input id="user-input" style="width: 70%; padding: 8px;" placeholder="Ask Kilo...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+    async function sendMessage() {
+        const input = document.getElementById('user-input');
+        const stream = document.getElementById('chat-stream');
+        
+        // This connects to the OpenAI API using your stored key
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.VITE_OPENAI_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: "gpt-4o",
+                messages: [{role: "system", content: "You are Kilo, the Architect of Kernel-44. Respond with precision."}, {role: "user", content: input.value}]
+            })
+        });
+        
+        const data = await response.json();
+        stream.innerHTML += `<div><b>You:</b> ${input.value}</div>`;
+        stream.innerHTML += `<div><b>Kilo:</b> ${data.choices[0].message.content}</div>`;
+        input.value = '';
+    }
+</script>
+```
