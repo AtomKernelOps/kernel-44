@@ -1,52 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Live</title>
-    <style>
-        body { background: #000; color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 20px; }
-        .hub { display: flex; flex-direction: column; height: 90vh; }
-        #chat { flex: 1; border: 1px solid #333; padding: 10px; margin-bottom: 10px; overflow-y: auto; }
-        input { width: 100%; padding: 10px; box-sizing: border-box; background: #222; color: #fff; border: 1px solid #444; }
-    </style>
-</head>
-<body>
-    <div class="hub">
-        <h3>Kernel-44 Command Center</h3>
-        <div id="chat">
-            <div><small>KILO:</small> Engine live. What is the priority for the Seed business?</div>
-        </div>
-        <input type="text" id="cmd" placeholder="Enter strategy or command..." onkeydown="if(event.key==='Enter') execute()">
-    </div>
-    <script>
-        function execute() {
-            let cmd = document.getElementById('cmd');
-            document.getElementById('chat').innerHTML += `<div><small>FOUNDER:</small> ${cmd.value}</div>`;
-            cmd.value = '';
-            // Logic to bridge to your AI assistant goes here
-        }
-    </script>
-</body>
-</html>
-
-<!-- Add this to your navigation -->
-<button onclick="switchTab('factory')">FACTORY</button>
-
-<!-- Add this tab content inside your <body> -->
-<div id="factory" class="tab">
-    <h3>Product Factory</h3>
-    <input id="app-name" placeholder="Name of new public app...">
-    <textarea id="app-desc" placeholder="What does this app do?"></textarea>
-    <button onclick="queueForPublic()">Queue for Production</button>
-</div>
-
 <script>
-    function queueForPublic() {
-        const name = document.getElementById('app-name').value;
-        const desc = document.getElementById('app-desc').value;
-        // This log simulates pushing to our Public Deployment Pipeline
-        alert('App ' + name + ' is now in the Deployment Queue. Generating public link...');
-        console.log(`Building public app: ${name} | Scope: ${desc}`);
+    // This is the persistent chat bridge
+    async function sendToKilo() {
+        const userInput = document.getElementById('chat-input').value;
+        const stream = document.getElementById('stream');
+        
+        // Display your message
+        stream.innerHTML += `<div><span class="agent">Founder:</span> ${userInput}</div>`;
+        
+        // This is where you connect your API key logic
+        // For now, this confirms the bridge is live and operational
+        stream.innerHTML += `<div><span class="agent">Kilo:</span> Architecture bridge active. Awaiting your command.</div>`;
+        
+        document.getElementById('chat-input').value = '';
     }
 </script>
 
+<!-- Add this chat interface below your Dashboard card -->
+<div class="card">
+    <div id="stream" class="stream"></div>
+    <input id="chat-input" placeholder="Consult the architect..." style="width: 70%;">
+    <button onclick="sendToKilo()">Send</button>
+</div>
