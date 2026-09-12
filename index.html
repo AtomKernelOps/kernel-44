@@ -1,19 +1,24 @@
-<!-- Add this section to your index.html -->
-<div id="kilo-chat" class="card" style="margin-top: 20px;">
-    <div class="agent-name">KILO | ARCHITECT</div>
-    <div id="chat-stream" style="height: 100px; overflow-y: auto; margin: 10px 0; border: 1px solid #333; padding: 5px;"></div>
-    <input id="chat-input" style="width: 70%;" placeholder="Architectural query...">
-    <button onclick="sendToKilo()">Send</button>
-</div>
-
-<script>
-    async function sendToKilo() {
-        const input = document.getElementById('chat-input').value;
-        const stream = document.getElementById('chat-stream');
-        stream.innerHTML += `<div><strong>You:</strong> ${input}</div>`;
-        
-        // This connects to the OpenAI Assistant API
-        // We will bridge your API key via Vercel Environment Variables
-        document.getElementById('chat-input').value = '';
-    }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44</title>
+    <style>
+        body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
+        #stream { height: 70vh; overflow-y: auto; border: 1px solid #333; padding: 10px; margin-bottom: 10px; }
+        input { width: 100%; background: #111; color: #0f0; border: 1px solid #333; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div id="stream">SYSTEM: Kernel-44 Online. Waiting for link...</div>
+    <input id="input" placeholder="Type command here..." onkeydown="if(event.key==='Enter') send()">
+    <script>
+        function send() {
+            const input = document.getElementById('input');
+            const stream = document.getElementById('stream');
+            stream.innerHTML += `<div>> ${input.value}</div>`;
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
