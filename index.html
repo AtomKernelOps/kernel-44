@@ -1,34 +1,19 @@
-<!-- THE AGENT GRID -->
-<div id="agent-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-    <div class="card" onclick="openAgent('OPERATIONS')">
-        <div class="agent-name">OPS</div>
-        <small>Leverage & Workflow</small>
-    </div>
-    <div class="card" onclick="openAgent('STRATEGY')">
-        <div class="agent-name">STRAT</div>
-        <small>Venture Metrics</small>
-    </div>
-    <div class="card" onclick="openAgent('KILO')">
-        <div class="agent-name">KILO</div>
-        <small>Architectural Dev</small>
-    </div>
-</div>
-
-<div id="agent-interface" class="card" style="margin-top: 20px; display: none;">
-    <h3 id="current-agent">Agent Interface</h3>
-    <textarea id="agent-input" style="width: 100%; height: 80px;"></textarea>
-    <button onclick="executeAgent()">EXECUTE COMMAND</button>
+<!-- Add this section to your index.html -->
+<div id="kilo-chat" class="card" style="margin-top: 20px;">
+    <div class="agent-name">KILO | ARCHITECT</div>
+    <div id="chat-stream" style="height: 100px; overflow-y: auto; margin: 10px 0; border: 1px solid #333; padding: 5px;"></div>
+    <input id="chat-input" style="width: 70%;" placeholder="Architectural query...">
+    <button onclick="sendToKilo()">Send</button>
 </div>
 
 <script>
-    function openAgent(name) {
-        document.getElementById('agent-interface').style.display = 'block';
-        document.getElementById('current-agent').innerText = name + " AGENT";
-    }
-    
-    function executeAgent() {
-        const cmd = document.getElementById('agent-input').value;
-        alert("Command Sent to " + document.getElementById('current-agent').innerText + ": " + cmd);
-        // This is where we will hook in the API call to your live agents
+    async function sendToKilo() {
+        const input = document.getElementById('chat-input').value;
+        const stream = document.getElementById('chat-stream');
+        stream.innerHTML += `<div><strong>You:</strong> ${input}</div>`;
+        
+        // This connects to the OpenAI Assistant API
+        // We will bridge your API key via Vercel Environment Variables
+        document.getElementById('chat-input').value = '';
     }
 </script>
