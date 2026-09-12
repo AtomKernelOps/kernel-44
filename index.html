@@ -2,22 +2,40 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44</title>
+    <title>Kernel-44 | Persistent</title>
     <style>
-        body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
-        #stream { height: 70vh; overflow-y: auto; border: 1px solid #333; padding: 10px; margin-bottom: 10px; }
-        input { width: 100%; background: #111; color: #0f0; border: 1px solid #333; padding: 10px; }
+        body { background: #000; color: #fff; font-family: sans-serif; padding: 20px; }
+        #chat-window { height: 70vh; overflow-y: scroll; border: 1px solid #333; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
+        input { width: 70%; padding: 10px; }
+        button { padding: 10px; }
     </style>
 </head>
 <body>
-    <div id="stream">SYSTEM: Kernel-44 Online. Waiting for link...</div>
-    <input id="input" placeholder="Type command here..." onkeydown="if(event.key==='Enter') send()">
+    <h1>Kernel-44: Kilo Persistent</h1>
+    <div id="chat-window"></div>
+    <input id="prompt" placeholder="Command the OS...">
+    <button onclick="send()">Execute</button>
+
     <script>
-        function send() {
-            const input = document.getElementById('input');
-            const stream = document.getElementById('stream');
-            stream.innerHTML += `<div>> ${input.value}</div>`;
-            input.value = '';
+        const API_KEY = "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"; 
+        async function send() {
+            let input = document.getElementById('prompt').value;
+            let window = document.getElementById('chat-window');
+            window.innerHTML += `<div><b>Founder:</b> ${input}</div>`;
+            
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: "gpt-4",
+                    messages: [
+                        {role: "system", content: "You are Kilo, Lead Engineer of Kernel-44. Visionary, meticulous, creative. Your voice is precise and punchy. No filler."},
+                        {role: "user", content: input}
+                    ]
+                })
+            });
+            const data = await response.json();
+            window.innerHTML += `<div><b>Kilo:</b> ${data.choices[0].message.content}</div>`;
         }
     </script>
 </body>
