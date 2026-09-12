@@ -1,37 +1,54 @@
-
-<!-- Kilo-Consultant Integration Atom -->
-<div id="kilo-chat" class="card" style="margin-top: 20px; border-top: 2px solid #007aff;">
-    <span class="agent-name">Kilo (System Architect)</span>
-    <div id="chat-stream" style="font-size: 0.8rem; margin: 10px 0; min-height: 50px;">
-        Awaiting connection...
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44 | Kilo-Link</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; }
+        #chat-window { height: 400px; overflow-y: scroll; border: 1px solid #333; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+        input { width: 70%; padding: 10px; background: #222; border: 1px solid #444; color: #fff; }
+    </style>
+</head>
+<body>
+    <h1>Kernel-44</h1>
+    <div id="chat-window">
+        <div><small>KILO:</small> Bridge established. I am online inside the Kernel. What is our first engineering objective?</div>
     </div>
-    <input id="kilo-input" style="width: 70%; padding: 5px;" placeholder="Architectural query...">
-    <button onclick="askKilo()">Consult</button>
+    <input id="user-input" placeholder="Consult the architect...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const chat = document.getElementById('chat-window');
+            chat.innerHTML += `<div><small>FOUNDER:</small> ${input.value}</div>`;
+            // The Logic to link your API key will be bridged here via your Vercel backend
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
+
+html
+<!-- Kilo-Channel Integration -->
+<div class="card" style="margin-top: 20px; border: 2px solid #007aff;">
+    <div class="agent-name">KILO - ARCHITECTURAL CHANNEL</div>
+    <div id="kilo-chat" style="height: 100px; overflow-y: scroll; margin-bottom: 10px; font-size: 0.8rem;">
+        <div>Kilo: Systems online. Awaiting your directive.</div>
+    </div>
+    <input id="kilo-input" style="width: 70%; padding: 5px;" placeholder="Message Kilo...">
+    <button onclick="sendToKilo()">Send</button>
 </div>
 
 <script>
-    async function askKilo() {
-        const input = document.getElementById('kilo-input').value;
-        const stream = document.getElementById('chat-stream');
+    async function sendToKilo() {
+        const input = document.getElementById('kilo-input');
+        const chat = document.getElementById('kilo-chat');
+        chat.innerHTML += `<div>Founder: ${input.value}</div>`;
         
-        stream.innerHTML = "Thinking...";
-
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Authorization': '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',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                model: "gpt-4",
-                messages: [
-                    { role: "system", content: "You are Kilo, the Architectural Artist. You are the Lead Engineer of Kernel-44. Keep responses concise, high-flavour, and strictly focused on engineering strategy." },
-                    { role: "user", content: input }
-                ]
-            })
-        });
-
-        const data = await response.json();
-        stream.innerHTML = data.choices[0].message.content;
+        // This is where your API bridge logic lives
+        // You will paste your API integration here
+        input.value = '';
     }
 </script>
+
