@@ -1,7 +1,53 @@
-<!-- Add this button to your <nav> -->
-<button onclick="switchTab('kilo-console')">KILO (LIVE)</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44 | AI Company OS</title>
+    <style>
+        :root { --accent: #007aff; --bg: #000; --card: #111; --text: #fff; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        h1 { font-size: 1.2rem; margin-bottom: 20px; }
+        .tab-nav { display: flex; gap: 10px; margin-bottom: 20px; }
+        button { background: #222; color: #fff; border: 1px solid #444; padding: 10px; border-radius: 6px; cursor: pointer; flex: 1; }
+        .active-tab { border: 1px solid var(--accent); color: var(--accent); }
+        .content { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #333; min-height: 300px; }
+        .agent-label { color: var(--accent); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
+        .status-badge { font-size: 0.7rem; color: #00ff41; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Kernel-44</h1>
+    <div class="status-badge">● SYSTEM SECURE</div>
+    
+    <div class="tab-nav">
+        <button id="btn-hub" class="active-tab" onclick="switchTab('hub')">HUB</button>
+        <button id="btn-build" onclick="switchTab('build')">BUILD</button>
+        <button id="btn-kilo" onclick="switchTab('kilo')">KILO</button>
+    </div>
 
-<!-- Add this div to your <body> -->
-<div id="kilo-console" class="tab">
-    <iframe src="https://chatgpt.com/g/g-YOUR_CUSTOM_KILO_GPT" width="100%" height="500px" style="border:none;"></iframe>
-</div>
+    <div id="display" class="content">
+        <div id="hub-view">
+            <div class="agent-label">Command Stream</div>
+            <p>System initialized. Waiting for input...</p>
+        </div>
+    </div>
+
+    <script>
+        const views = {
+            hub: `<div class="agent-label">Command Stream</div><p>All nodes online. Waiting for Founder input.</p>`,
+            build: `<div class="agent-label">Blueprint Engine</div>
+                    <textarea id="idea" style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px;"></textarea>
+                    <button style="margin-top:10px" onclick="alert('Blueprint Sent to Orchestrator')">DEPLOY ATOM</button>`,
+            kilo: `<div class="agent-label">Lead Engineer</div>
+                   <p>KILO: Architectural Artist mode engaged. Ready to optimize your business logic.</p>`
+        };
+
+        function switchTab(view) {
+            document.getElementById('display').innerHTML = views[view];
+            document.querySelectorAll('button').forEach(b => b.classList.remove('active-tab'));
+            document.getElementById('btn-' + view).classList.add('active-tab');
+        }
+    </script>
+</body>
+</html>
