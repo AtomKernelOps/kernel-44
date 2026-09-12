@@ -1,19 +1,34 @@
-javascript
-// Add this function to your script tag in index.html
-function injectAgentMessage(agentName, message) {
-    const stream = document.getElementById('stream');
-    const entry = document.createElement('div');
-    entry.innerHTML = `<span class="agent">${agentName}:</span> ${message}`;
-    stream.appendChild(entry);
-    stream.scrollTop = stream.scrollHeight; // Auto-scrolls to latest
-}
+<!-- THE AGENT GRID -->
+<div id="agent-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+    <div class="card" onclick="openAgent('OPERATIONS')">
+        <div class="agent-name">OPS</div>
+        <small>Leverage & Workflow</small>
+    </div>
+    <div class="card" onclick="openAgent('STRATEGY')">
+        <div class="agent-name">STRAT</div>
+        <small>Venture Metrics</small>
+    </div>
+    <div class="card" onclick="openAgent('KILO')">
+        <div class="agent-name">KILO</div>
+        <small>Architectural Dev</small>
+    </div>
+</div>
 
-// Example: Calling this when your Ideation Agent produces a result
-// injectAgentMessage("Ideation AI", "Business concept: Subscription-based local coffee delivery.");
-```
+<div id="agent-interface" class="card" style="margin-top: 20px; display: none;">
+    <h3 id="current-agent">Agent Interface</h3>
+    <textarea id="agent-input" style="width: 100%; height: 80px;"></textarea>
+    <button onclick="executeAgent()">EXECUTE COMMAND</button>
+</div>
 
-### **Engineering Instructions for Issue #9:**
-
-1.  **The Hook:** Wherever your Ideation AI generates an output, you need to call that `injectAgentMessage()` function. 
-2.  **If using an external AI tool:** You will need to trigger this function via a **Webhook**. If your ideation agent can send a "POST" request, have it send the data to a simple Vercel "Serverless Function" (a small script) that then passes it to your `index.html`.
-3.  **The Test:** To verify this works, add this line to your script for now: `setTimeout(() => injectAgentMessage("Ideation AI", "System connected. Ready to process blueprints."), 2000);
+<script>
+    function openAgent(name) {
+        document.getElementById('agent-interface').style.display = 'block';
+        document.getElementById('current-agent').innerText = name + " AGENT";
+    }
+    
+    function executeAgent() {
+        const cmd = document.getElementById('agent-input').value;
+        alert("Command Sent to " + document.getElementById('current-agent').innerText + ": " + cmd);
+        // This is where we will hook in the API call to your live agents
+    }
+</script>
