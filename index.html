@@ -1,43 +1,38 @@
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 OS</title>
-    <style>
-        body { background: #000; color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 500px; margin: auto; }
-        .card { background: #111; border: 1px solid #333; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
-        h1 { font-size: 1.5rem; margin-bottom: 20px; }
-        .nav-btn { background: #222; border: 1px solid #444; color: #fff; padding: 8px 15px; border-radius: 6px; }
-        #chat { height: 200px; overflow-y: auto; margin-bottom: 10px; font-size: 0.9rem; border-bottom: 1px solid #222; }
-        input { width: 70%; padding: 10px; background: #222; border: 1px solid #444; color: #fff; border-radius: 6px; }
-        button#send { padding: 10px; background: #fff; border: none; border-radius: 6px; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Kernel-44 OS</h1>
-        <div class="nav-nav">
-            <button class="nav-btn">OPS</button>
-            <button class="nav-btn">STRAT</button>
-        </div>
-        <div class="card">
-            <div id="chat">
-                <div>> Kilo: Architectural bridge initialized. Standing by.</div>
-            </div>
-            <input id="input" placeholder="Message Kilo...">
-            <button id="send">Send</button>
-        </div>
+<!-- Kilo-Consultant Integration Atom -->
+<div id="kilo-chat" class="card" style="margin-top: 20px; border-top: 2px solid #007aff;">
+    <span class="agent-name">Kilo (System Architect)</span>
+    <div id="chat-stream" style="font-size: 0.8rem; margin: 10px 0; min-height: 50px;">
+        Awaiting connection...
     </div>
-</body>
-</html>
-```
-```html
-<div class="card" id="chat-section">
-    <div class="agent-name">Kilo (Lead Engineer)</div>
-    <div id="kilo-msg">"The OS is live, Founder. What's the first architectural shift today?"</div>
-    <input id="founder-input" style="width: 100%; margin-top: 10px;" placeholder="Send architectural orders...">
+    <input id="kilo-input" style="width: 70%; padding: 5px;" placeholder="Architectural query...">
+    <button onclick="askKilo()">Consult</button>
 </div>
+
+<script>
+    async function askKilo() {
+        const input = document.getElementById('kilo-input').value;
+        const stream = document.getElementById('chat-stream');
+        
+        stream.innerHTML = "Thinking...";
+
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': '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',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: "gpt-4",
+                messages: [
+                    { role: "system", content: "You are Kilo, the Architectural Artist. You are the Lead Engineer of Kernel-44. Keep responses concise, high-flavour, and strictly focused on engineering strategy." },
+                    { role: "user", content: input }
+                ]
+            })
+        });
+
+        const data = await response.json();
+        stream.innerHTML = data.choices[0].message.content;
+    }
+</script>
 ```
