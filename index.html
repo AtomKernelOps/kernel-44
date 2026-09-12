@@ -1,38 +1,35 @@
+html
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Command Center</title>
+    <title>Kernel-44 | Live</title>
     <style>
         body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; }
-        #chat-box { height: 300px; overflow-y: auto; border: 1px solid #333; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
-        input { width: 100%; padding: 10px; background: #222; color: #fff; border: 1px solid #444; }
+        #chat-window { height: 300px; overflow-y: auto; border: 1px solid #333; padding: 10px; margin-bottom: 10px; }
+        input { width: 70%; padding: 10px; background: #222; border: 1px solid #444; color: #fff; }
+        button { padding: 10px; background: #007aff; border: none; color: #fff; }
     </style>
 </head>
 <body>
     <h1>Kernel-44</h1>
-    <div id="chat-box"></div>
-    <input id="user-input" placeholder="Consult Kilo..." onkeydown="if(event.key==='Enter') sendMessage()">
+    <div id="chat-window"></div>
+    <input id="prompt" placeholder="Message Kilo...">
+    <button onclick="sendMessage()">Send</button>
 
     <script>
-        const API_KEY = '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';
-        
         async function sendMessage() {
-            const input = document.getElementById('user-input');
-            const box = document.getElementById('chat-box');
-            box.innerHTML += `<div><b>You:</b> ${input.value}</div>`;
+            const input = document.getElementById('prompt').value;
+            const chat = document.getElementById('chat-window');
+            chat.innerHTML += `<div>Founder: ${input}</div>`;
             
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: { 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    model: "gpt-4o",
-                    messages: [{role: "system", content: "You are Kilo, Lead Architect of Kernel-44."}, {role: "user", content: input.value}]
-                })
+            // This calls your server-side bridge
+            const response = await fetch('/api/chat', { 
+                method: 'POST', 
+                body: JSON.stringify({ message: input }) 
             });
             const data = await response.json();
-            box.innerHTML += `<div><b>Kilo:</b> ${data.choices[0].message.content}</div>`;
-            input.value = '';
+            chat.innerHTML += `<div style="color: #00ff41;">Kilo: ${data.reply}</div>`;
         }
     </script>
 </body>
