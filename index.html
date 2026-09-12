@@ -1,1 +1,19 @@
+javascript
+// Add this function to your script tag in index.html
+function injectAgentMessage(agentName, message) {
+    const stream = document.getElementById('stream');
+    const entry = document.createElement('div');
+    entry.innerHTML = `<span class="agent">${agentName}:</span> ${message}`;
+    stream.appendChild(entry);
+    stream.scrollTop = stream.scrollHeight; // Auto-scrolls to latest
+}
 
+// Example: Calling this when your Ideation Agent produces a result
+// injectAgentMessage("Ideation AI", "Business concept: Subscription-based local coffee delivery.");
+```
+
+### **Engineering Instructions for Issue #9:**
+
+1.  **The Hook:** Wherever your Ideation AI generates an output, you need to call that `injectAgentMessage()` function. 
+2.  **If using an external AI tool:** You will need to trigger this function via a **Webhook**. If your ideation agent can send a "POST" request, have it send the data to a simple Vercel "Serverless Function" (a small script) that then passes it to your `index.html`.
+3.  **The Test:** To verify this works, add this line to your script for now: `setTimeout(() => injectAgentMessage("Ideation AI", "System connected. Ready to process blueprints."), 2000);
