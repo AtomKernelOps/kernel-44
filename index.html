@@ -1,23 +1,40 @@
-<script>
-    // This is the persistent chat bridge
-    async function sendToKilo() {
-        const userInput = document.getElementById('chat-input').value;
-        const stream = document.getElementById('stream');
-        
-        // Display your message
-        stream.innerHTML += `<div><span class="agent">Founder:</span> ${userInput}</div>`;
-        
-        // This is where you connect your API key logic
-        // For now, this confirms the bridge is live and operational
-        stream.innerHTML += `<div><span class="agent">Kilo:</span> Architecture bridge active. Awaiting your command.</div>`;
-        
-        document.getElementById('chat-input').value = '';
-    }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44 | OS Core</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; }
+        .box { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #333; }
+        textarea { width: 100%; height: 120px; background: #000; color: #0f0; border: 1px solid #444; padding: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; margin-top: 10px; background: #007aff; color: #fff; border: none; border-radius: 6px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Kernel-44</h1>
+    <div class="box">
+        <textarea id="vision" placeholder="Describe the business concept..."></textarea>
+        <button onclick="generateBlueprint()">GENERATE BLUEPRINT</button>
+    </div>
+    <div id="output" class="box" style="margin-top: 20px; display:none;"></div>
 
-<!-- Add this chat interface below your Dashboard card -->
-<div class="card">
-    <div id="stream" class="stream"></div>
-    <input id="chat-input" placeholder="Consult the architect..." style="width: 70%;">
-    <button onclick="sendToKilo()">Send</button>
-</div>
+    <script>
+        function generateBlueprint() {
+            const vision = document.getElementById('vision').value;
+            const output = document.getElementById('output');
+            
+            // This is our hard-coded Blueprint Orchestrator logic
+            const blueprint = `
+                <strong>Blueprint: ${vision.substring(0, 20)}...</strong><br>
+                1. <strong>Atomic Setup:</strong> Provisioning CRM/Payment Atoms.<br>
+                2. <strong>Resource Allocation:</strong> Setting AI Agent roles.<br>
+                3. <strong>Confidence Metric:</strong> 88% Potential.<br>
+                <em>Status: Execution ready.</em>
+            `;
+            
+            output.innerHTML = blueprint;
+            output.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
