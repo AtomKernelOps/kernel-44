@@ -1,42 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44</title>
-    <style>
-        body { font-family: sans-serif; background: #000; color: #fff; padding: 20px; }
-        .card { background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 10px; }
-    </style>
-</head>
-<body>
-    <h1>Kernel-44</h1>
-    <div id="hub" class="card">
-        <h3>Command Stream</h3>
-        <div id="stream">System Online.</div>
-    </div>
-
-    <!-- Load your modular files -->
-    <script src="kilo-core.js"></script>
-    <script src="chat.js"></script>
-    <!-- Kilo-Bridge Interface -->
-<div id="kilo-bridge" class="card">
-    <div id="chat-stream" style="height: 150px; overflow-y: scroll; margin-bottom: 10px; font-size: 0.8rem;">
-        <div><strong>Kilo:</strong> Bridge active. Awaiting encryption handshake.</div>
-    </div>
-    <input id="kilo-input" placeholder="Architectural query..." style="width: 70%;">
-    <button onclick="sendToKilo()">Transmit</button>
+<!-- Kilo-Bridge Atom -->
+<div class="card" id="chat-interface">
+    <div class="agent-name">Kilo (Lead Engineer)</div>
+    <div id="chat-log" style="height: 150px; overflow-y: scroll; margin-bottom: 10px;"></div>
+    <input id="user-input" style="width: 70%;" placeholder="Ask Kilo for architecture updates...">
+    <button onclick="sendToKilo()">Send</button>
 </div>
 
 <script>
     async function sendToKilo() {
-        const input = document.getElementById('kilo-input').value;
-        const stream = document.getElementById('chat-stream');
-        stream.innerHTML += `<div><strong>Founder:</strong> ${input}</div>`;
+        const input = document.getElementById('user-input');
+        const log = document.getElementById('chat-log');
+        log.innerHTML += `<div><b>Founder:</b> ${input.value}</div>`;
         
-        // This is where we bridge to the AI.
-        // You will replace this with your secure endpoint once we deploy.
-        stream.innerHTML += `<div><strong>Kilo:</strong> Transmitting to Kernel-44...</div>`;
+        // This connects to the backend proxy we will set up in Vercel
+        const response = await fetch('/api/kilo', {
+            method: 'POST',
+            body: JSON.stringify({ message: input.value })
+        });
+        const data = await response.json();
+        log.innerHTML += `<div><b>Kilo:</b> ${data.reply}</div>`;
+        input.value = '';
     }
 </script>
-</body>
-</html>
