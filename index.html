@@ -1,48 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | AI OS</title>
+    <title>Kernel-44</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
-        .app-container { max-width: 600px; margin: 0 auto; }
-        .card { background: #1a1a1a; padding: 15px; border-radius: 12px; border: 1px solid #333; margin-bottom: 15px; }
-        nav { display: flex; gap: 10px; margin-bottom: 20px; }
-        button { background: #222; color: #fff; border: 1px solid #444; padding: 10px; border-radius: 6px; cursor: pointer; }
-        .active-tab { border: 1px solid #007aff; color: #007aff; }
+        body { font-family: sans-serif; background: #000; color: #fff; padding: 20px; }
+        .card { background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <h1>Kernel-44</h1>
-        <nav>
-            <button onclick="showTab('hub')">Hub</button>
-            <button onclick="showTab('build')">Build</button>
-            <button onclick="showTab('chat')">Talk to Kilo</button>
-        </nav>
-
-        <div id="hub" class="tab-content">
-            <div class="card"><h3>Command Stream</h3><div id="stream">System Online.</div></div>
-        </div>
-
-        <div id="build" class="tab-content" style="display:none;">
-            <div class="card"><h3>Blueprint Engine</h3><textarea id="idea" style="width:100%;"></textarea><button onclick="generate()">Execute</button></div>
-        </div>
-
-        <div id="chat" class="tab-content" style="display:none;">
-            <div class="card"><h3>Kilo Engineering Link</h3><div id="chat-box"></div></div>
-        </div>
+    <h1>Kernel-44</h1>
+    <div id="hub" class="card">
+        <h3>Command Stream</h3>
+        <div id="stream">System Online.</div>
     </div>
 
-    <!-- Modular Architecture Loads -->
+    <!-- Load your modular files -->
     <script src="kilo-core.js"></script>
     <script src="chat.js"></script>
-    <script>
-        function showTab(id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-        }
-    </script>
 </body>
 </html>
