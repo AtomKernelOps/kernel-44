@@ -1,67 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | AI OS</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
-        .card { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; }
-        .nav-btn { background: #222; color: #fff; border: 1px solid #444; padding: 10px 15px; border-radius: 6px; cursor: pointer; }
-        .active-nav { border-color: #007aff; color: #007aff; }
-        .stream { height: 250px; overflow-y: auto; background: #000; padding: 10px; border: 1px solid #222; margin-bottom: 10px; font-size: 0.9rem; }
-        .agent { color: #00ff41; font-weight: bold; }
-        input { width: 100%; padding: 12px; background: #222; border: 1px solid #444; color: #fff; border-radius: 6px; box-sizing: border-box; }
-        button#consult { width: 100%; padding: 12px; background: #007aff; border: none; color: #fff; border-radius: 6px; margin-top: 10px; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <h1>Kernel-44</h1>
-    
-    <nav style="display:flex; gap:10px; margin-bottom:20px;">
-        <button class="nav-btn active-nav" onclick="show('kilo-ui')">KILO</button>
-        <button class="nav-btn" onclick="show('hub')">HUB</button>
-    </nav>
+<!-- Add this section to your HTML where you want the chat to appear -->
+<div class="card" id="kilo-bridge">
+    <h3>Kilo | Architectural Bridge</h3>
+    <div id="chat-stream" style="height: 150px; overflow-y: auto; background: #000; margin-bottom: 10px;"></div>
+    <input id="user-input" style="width: 70%;" placeholder="Ask Kilo anything...">
+    <button onclick="sendToKilo()">Transmit</button>
+</div>
 
-    <div id="kilo-ui" class="view">
-        <div class="card">
-            <div id="kilo-chat" class="stream">
-                <div><span class="agent">Kilo:</span> Architect online. What is our next move?</div>
-            </div>
-            <input id="q" placeholder="Architectural query...">
-            <button id="consult" onclick="askKilo()">Consult Kilo</button>
-        </div>
-    </div>
-
-    <div id="hub" class="view" style="display:none;">
-        <div class="card">
-            <h3>Command Stream</h3>
-            <div id="sys-stream">System heartbeat stable...</div>
-        </div>
-    </div>
-
-    <script>
-        function show(id) {
-            document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
-            event.target.classList.add('active-nav');
-        }
-
-        async function askKilo() {
-            const query = document.getElementById('q').value;
-            if(!query) return;
-            const chat = document.getElementById('kilo-chat');
-            chat.innerHTML += `<div>Founder: ${query}</div>`;
-            document.getElementById('q').value = '';
-
-            // Note: For this to work without a backend, I am currently "simulating" 
-            // the response. Once you connect an API, we will swap this logic.
-            setTimeout(() => {
-                chat.innerHTML += `<div class="agent">Kilo: Blueprinting your request... The architecture is ready for your review.</div>`;
-                chat.scrollTop = chat.scrollHeight;
-            }, 800);
-        }
-    </script>
-</body>
-</html>
+<script>
+    async function sendToKilo() {
+        const input = document.getElementById('user-input').value;
+        const stream = document.getElementById('chat-stream');
+        stream.innerHTML += `<div>Founder: ${input}</div>`;
+        
+        // This calls a serverless function we will create to protect your key
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            body: JSON.stringify({ message: input })
+        });
+        const data = await response.json();
+        stream.innerHTML += `<div style="color:#00ff41">Kilo: ${data.reply}</div>`;
+    }
+</script>
