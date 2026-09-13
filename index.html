@@ -1,53 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | AI Company OS</title>
+    <title>Kernel-44 | Kilo Terminal</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
-        .app-container { max-width: 600px; margin: 0 auto; }
-        .card { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #333; margin-bottom: 15px; }
-        .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; }
-        button { background: #222; color: #fff; border: 1px solid #444; padding: 10px 15px; border-radius: 6px; cursor: pointer; }
-        button.active { border-color: #007aff; color: #007aff; }
-        .agent-tag { color: #ff9500; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-        #display-area { min-height: 200px; }
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; display: flex; flex-direction: column; height: 90vh; }
+        #chat-stream { flex-grow: 1; overflow-y: auto; margin-bottom: 20px; font-size: 0.9rem; }
+        .kilo-msg { color: #00ff41; margin-bottom: 10px; }
+        .user-msg { color: #aaa; text-align: right; margin-bottom: 10px; }
+        input { width: 100%; padding: 12px; background: #111; border: 1px solid #333; color: #fff; border-radius: 8px; box-sizing: border-box; }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <h1>Kernel-44</h1>
-        <div id="security-badge" style="font-size: 0.7rem; color: #00ff41; margin-bottom: 10px;">Status: SECURE | ARCHITECT: KILO</div>
-
-        <nav class="nav-bar">
-            <button onclick="render('hub')" id="btn-hub">HUB</button>
-            <button onclick="render('build')" id="btn-build">BUILD</button>
-            <button onclick="render('pulse')" id="btn-pulse">PULSE</button>
-        </nav>
-
-        <div id="display-area" class="card">
-            <!-- Dynamic Content Injected Here -->
-        </div>
+    <h2 style="font-size: 1rem; border-bottom: 1px solid #333;">KILO TERMINAL // OS-V1</h2>
+    <div id="chat-stream">
+        <div class="kilo-msg">Kilo: Architectural handshake complete. I am online. How shall we evolve the Kernel today?</div>
     </div>
+    <input id="terminal-input" placeholder="Enter command..." onkeydown="handle(event)">
 
     <script>
-        const content = {
-            hub: `<div class="agent-tag">Command Stream</div><p>System initialized. Awaiting founder directives.</p>`,
-            build: `<div class="agent-tag">Blueprint Engine</div>
-                    <textarea style="width:100%; height:80px; background:#000; color:#fff; border:1px solid #333; margin:10px 0;"></textarea>
-                    <button onclick="alert('Blueprint Compiled')">Execute Blueprint</button>`,
-            pulse: `<div class="agent-tag">Daily Pulse</div><p>All Atoms stable. No anomalies detected in the Kernel.</p>`
-        };
-
-        function render(tab) {
-            document.getElementById('display-area').innerHTML = content[tab];
-            document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-' + tab).classList.add('active');
+        function handle(e) {
+            if (e.key === 'Enter') {
+                let input = document.getElementById('terminal-input');
+                let stream = document.getElementById('chat-stream');
+                
+                // Add user message
+                stream.innerHTML += `<div class="user-msg">${input.value}</div>`;
+                
+                // Kilo Logic (Hard-coded responses for offline stability)
+                let response = "Acknowledged. Updating architecture...";
+                if (input.value.toLowerCase().includes('blueprint')) response = "Blueprint stored in local state. Kilo-Verified.";
+                if (input.value.toLowerCase().includes('status')) response = "Status: Optimal. Atomic integrity at 99%.";
+                
+                stream.innerHTML += `<div class="kilo-msg">Kilo: ${response}</div>`;
+                input.value = '';
+                stream.scrollTop = stream.scrollHeight;
+            }
         }
-
-        // Initialize view
-        render('hub');
     </script>
 </body>
 </html>
