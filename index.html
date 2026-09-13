@@ -2,38 +2,29 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Kilo-Core</title>
+    <title>Kernel-44 | Offline Core</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; }
-        .card { background: #111; padding: 15px; border-radius: 12px; border: 1px solid #333; margin-bottom: 10px; }
-        #stream { height: 300px; overflow-y: auto; padding: 10px; font-size: 0.9rem; }
-        input { width: 70%; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #222; color: #fff; }
-        button { padding: 10px; border-radius: 6px; background: #007aff; color: #fff; border: none; }
+        body { font-family: -apple-system, sans-serif; background: #000; color: #00ff41; padding: 20px; }
+        .card { background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333; margin-top: 10px; }
+        input { background: #000; color: #00ff41; border: 1px solid #333; padding: 10px; width: 100%; }
     </style>
 </head>
 <body>
-    <h1>Kernel-44</h1>
-    <div id="stream" class="card">
-        <div><span style="color:#007aff">KILO:</span> System online. Awaiting your command.</div>
-    </div>
+    <h1>KILO-CORE v1.0</h1>
+    <div id="log" class="card">Awaiting Architectural Input...</div>
     <div class="card">
-        <input id="cmd" placeholder="Ask Kilo...">
-        <button onclick="execute()">RUN</button>
+        <input id="input" placeholder="Type instructions to Kilo...">
+        <button onclick="process()">EXECUTE</button>
     </div>
 
     <script>
-        function execute() {
-            let cmd = document.getElementById('cmd').value.toLowerCase();
-            let stream = document.getElementById('stream');
-            stream.innerHTML += `<div><span style="color:#aaa">FOUNDER:</span> ${cmd}</div>`;
-            
-            let response = "Acknowledged. Routing to system logs...";
-            if(cmd.includes("status")) response = "System status: OPERATIONAL. All atoms active.";
-            if(cmd.includes("blueprint")) response = "Ready to generate. Input concept parameters.";
-            
-            stream.innerHTML += `<div><span style="color:#007aff">KILO:</span> ${response}</div>`;
-            document.getElementById('cmd').value = '';
-            stream.scrollTop = stream.scrollHeight;
+        function process() {
+            let input = document.getElementById('input').value;
+            let log = document.getElementById('log');
+            // This logic allows you to "talk" to the system offline
+            let response = `ARCHITECTURAL LOG: Received "${input}". Awaiting system sync.`;
+            log.innerHTML = `<div>> ${input}</div><br><div>${response}</div>`;
+            document.getElementById('input').value = '';
         }
     </script>
 </body>
