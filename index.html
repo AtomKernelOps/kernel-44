@@ -2,43 +2,41 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Live Terminal</title>
+    <title>Kernel-44 | AI OS</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #000; color: #00ff41; padding: 20px; }
-        #terminal { height: 400px; overflow-y: auto; border: 1px solid #333; padding: 10px; margin-bottom: 10px; }
-        input { width: 100%; background: #111; color: #00ff41; border: 1px solid #333; padding: 10px; }
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
+        .card { background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #333; }
+        #chat-window { height: 250px; overflow-y: auto; margin-bottom: 10px; }
+        input { width: 70%; padding: 10px; background: #000; color: #fff; border: 1px solid #444; border-radius: 6px; }
+        button { padding: 10px; background: #007aff; color: white; border: none; border-radius: 6px; }
     </style>
 </head>
 <body>
-    <h3>KILO TERMINAL</h3>
-    <div id="terminal">Initializing connection...</div>
-    <input id="prompt" placeholder="Input command or query..." onkeydown="if(event.key==='Enter') sendPrompt()">
+    <h1>Kernel-44</h1>
+    <div id="chat-window" class="card">
+        <div style="color: #007aff;">Kilo: OS Bridge initialized. Ready for commands.</div>
+    </div>
+    <div class="card">
+        <input id="user-input" placeholder="Architectural command...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
 
     <script>
-        async function sendPrompt() {
-            const input = document.getElementById('prompt');
-            const term = document.getElementById('terminal');
-            term.innerHTML += `<div>> ${input.value}</div>`;
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const chat = document.getElementById('chat-window');
+            chat.innerHTML += `<div>Founder: ${input.value}</div>`;
             
-            // This logic sends your message to the Kilo Persona via the API
-            // (You will need to use a simple backend proxy or just hardcode the key for personal use)
+            // This connects your interface to the AI logic
+            // We use a Vercel serverless function to keep your API key secure
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                body: JSON.stringify({ message: input.value })
+            });
+            const data = await response.json();
+            chat.innerHTML += `<div style="color: #007aff;">Kilo: ${data.reply}</div>`;
             input.value = '';
         }
     </script>
-    <!-- Kilo Bridge Atom -->
-<div class="card">
-    <div class="agent-name">KILO | ENGINEERING BRIDGE</div>
-    <div id="kilo-chat" style="font-size: 0.8rem; margin: 10px 0;">Standing by...</div>
-    <input id="kilo-input" style="width: 70%;" placeholder="Command the OS...">
-    <button onclick="executeKilo()">Execute</button>
-</div>
-
-<script>
-    function executeKilo() {
-        const cmd = document.getElementById('kilo-input').value;
-        document.getElementById('kilo-chat').innerText = "Kilo: Architecting '" + cmd + "'...";
-        // This is where we will hook your OpenAI API Key once you have it.
-    }
-</script>
 </body>
 </html>
