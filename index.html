@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARK | AI Company OS</title>
+    <title>Kernel-44 | Master OS</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
-        .app-container { max-width: 600px; margin: auto; }
-        .tab-content { display: none; background: #111; padding: 20px; border-radius: 12px; border: 1px solid #333; }
-        .active { display: block; }
-        nav { display: flex; gap: 10px; margin-bottom: 20px; }
-        button { background: #222; border: 1px solid #444; color: #fff; padding: 10px; border-radius: 6px; cursor: pointer; }
-        .kilo-msg { color: #007aff; font-size: 0.8rem; font-weight: bold; }
+        :root { --accent: #007aff; --bg: #000; --panel: #111; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 20px; }
+        .master-card { background: var(--panel); border: 1px solid #333; padding: 20px; border-radius: 16px; margin-bottom: 20px; }
+        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        button { background: #222; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 8px; cursor: pointer; }
+        #kilo-chat { height: 250px; overflow-y: auto; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <h1>ARK: AI Company OS</h1>
-        <nav>
-            <button onclick="show('hub')">HUB</button>
-            <button onclick="show('build')">BUILD</button>
-            <button onclick="show('pulse')">PULSE</button>
-        </nav>
-
-        <div id="hub" class="tab-content active">
-            <div class="kilo-msg">KILO (ARCHITECT)</div>
-            <p>System initialized. Waiting for your strategic command.</p>
+    <h1>Kernel-44 <span style="font-size: 0.8rem; color: #666;">v1.0.0</span></h1>
+    
+    <div class="master-card">
+        <h3>OS Core: Agentic Workforce</h3>
+        <div class="nav-grid">
+            <button onclick="updateDisplay('OPERATIONS')">OPS</button>
+            <button onclick="updateDisplay('STRATEGY')">STRATEGY</button>
+            <button onclick="updateDisplay('KILO')">KILO (ENG)</button>
+            <button onclick="updateDisplay('SYSTEM')">SYSTEM</button>
         </div>
+    </div>
 
-        <div id="build" class="tab-content">
-            <h3>Blueprint Engine</h3>
-            <textarea id="idea" style="width:100%; height:100px; background:#000; color:#fff; border:1px solid #444;"></textarea>
-            <button onclick="generate()">Generate Atomic Blueprint</button>
-        </div>
-
-        <div id="pulse" class="tab-content">
-            <h3>Security & Pulse</h3>
-            <p>Status: <span style="color:#00ff41">SECURE</span></p>
+    <div class="master-card">
+        <h4 id="agent-title">KILO (ENG)</h4>
+        <div id="kilo-chat">
+            <p><strong>Kilo:</strong> The Master Brain is online. I have ingested the AI Company OS playbook. I am ready to architect your reality. What is our first strategic objective, Founder?</p>
         </div>
     </div>
 
     <script>
-        function show(id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
-        function generate() {
-            alert("Blueprint generated and logged to CommHub.");
+        const knowledge = {
+            OPERATIONS: "Executing workflow automation. Optimizing for 80/20 leverage.",
+            STRATEGY: "Analyzing venture-scale growth metrics. Positioning for maximum asset realization.",
+            KILO: "Architectural integrity maintained. I am your Lead Engineer. We are currently in 'Seed' deployment mode.",
+            SYSTEM: "Kernel-44 heartbeat: Stable. Atomic modules: Ready."
+        };
+
+        function updateDisplay(agent) {
+            document.getElementById('agent-title').innerText = agent;
+            document.getElementById('kilo-chat').innerHTML = `<p><strong>${agent}:</strong> ${knowledge[agent]}</p>`;
         }
     </script>
 </body>
