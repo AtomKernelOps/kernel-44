@@ -1,37 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Kilo Live</title>
+    <title>ARK | AI Company OS</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; }
-        .kilo-window { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #007aff; }
-        #chat { height: 200px; overflow-y: auto; margin-bottom: 10px; border-bottom: 1px solid #333; }
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
+        .app-container { max-width: 600px; margin: auto; }
+        .tab-content { display: none; background: #111; padding: 20px; border-radius: 12px; border: 1px solid #333; }
+        .active { display: block; }
+        nav { display: flex; gap: 10px; margin-bottom: 20px; }
+        button { background: #222; border: 1px solid #444; color: #fff; padding: 10px; border-radius: 6px; cursor: pointer; }
+        .kilo-msg { color: #007aff; font-size: 0.8rem; font-weight: bold; }
     </style>
 </head>
 <body>
-    <h1>Kilo Engine</h1>
-    <div class="kilo-window">
-        <div id="chat">
-            <div style="color: #007aff;">Kilo: Online. Architecture initialized. Awaiting your command, Founder.</div>
+    <div class="app-container">
+        <h1>ARK: AI Company OS</h1>
+        <nav>
+            <button onclick="show('hub')">HUB</button>
+            <button onclick="show('build')">BUILD</button>
+            <button onclick="show('pulse')">PULSE</button>
+        </nav>
+
+        <div id="hub" class="tab-content active">
+            <div class="kilo-msg">KILO (ARCHITECT)</div>
+            <p>System initialized. Waiting for your strategic command.</p>
         </div>
-        <input id="input" style="width: 70%; padding: 10px;" placeholder="Command Kilo...">
-        <button onclick="kiloExecute()">EXECUTE</button>
+
+        <div id="build" class="tab-content">
+            <h3>Blueprint Engine</h3>
+            <textarea id="idea" style="width:100%; height:100px; background:#000; color:#fff; border:1px solid #444;"></textarea>
+            <button onclick="generate()">Generate Atomic Blueprint</button>
+        </div>
+
+        <div id="pulse" class="tab-content">
+            <h3>Security & Pulse</h3>
+            <p>Status: <span style="color:#00ff41">SECURE</span></p>
+        </div>
     </div>
 
     <script>
-        function kiloExecute() {
-            let cmd = document.getElementById('input').value.toLowerCase();
-            let chat = document.getElementById('chat');
-            chat.innerHTML += `<div>Founder: ${cmd}</div>`;
-            
-            // This is the native logic core
-            let response = "Kilo: Awaiting instructions on that specific Atom.";
-            if (cmd.includes("blueprint")) response = "Kilo: Blueprinting initiated. Structuring the 80/20 leverage points.";
-            if (cmd.includes("status")) response = "Kilo: All systems nominal. Security badge active. Kernel-44 is ready.";
-            
-            chat.innerHTML += `<div style="color: #007aff;">${response}</div>`;
-            document.getElementById('input').value = '';
+        function show(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+        function generate() {
+            alert("Blueprint generated and logged to CommHub.");
         }
     </script>
 </body>
