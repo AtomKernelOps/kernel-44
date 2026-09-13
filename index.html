@@ -18,5 +18,25 @@
     <!-- Load your modular files -->
     <script src="kilo-core.js"></script>
     <script src="chat.js"></script>
+    <!-- Kilo-Bridge Interface -->
+<div id="kilo-bridge" class="card">
+    <div id="chat-stream" style="height: 150px; overflow-y: scroll; margin-bottom: 10px; font-size: 0.8rem;">
+        <div><strong>Kilo:</strong> Bridge active. Awaiting encryption handshake.</div>
+    </div>
+    <input id="kilo-input" placeholder="Architectural query..." style="width: 70%;">
+    <button onclick="sendToKilo()">Transmit</button>
+</div>
+
+<script>
+    async function sendToKilo() {
+        const input = document.getElementById('kilo-input').value;
+        const stream = document.getElementById('chat-stream');
+        stream.innerHTML += `<div><strong>Founder:</strong> ${input}</div>`;
+        
+        // This is where we bridge to the AI.
+        // You will replace this with your secure endpoint once we deploy.
+        stream.innerHTML += `<div><strong>Kilo:</strong> Transmitting to Kernel-44...</div>`;
+    }
+</script>
 </body>
 </html>
