@@ -2,63 +2,37 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARK-OS | Sovereign</title>
+    <title>Kernel-44 | Kilo Live</title>
     <style>
-        body { background: #000; color: #00FF41; font-family: 'Courier New', Courier, monospace; padding: 20px; }
-        .matrix-glow { text-shadow: 0 0 8px #00FF41; }
-        .card { border: 1px solid #00FF41; padding: 15px; margin: 10px 0; border-radius: 0; }
-        textarea, input { width: 100%; background: #000; color: #00FF41; border: 1px solid #00FF41; padding: 10px; box-sizing: border-box; }
-        button { background: #00FF41; color: #000; border: none; padding: 10px; cursor: pointer; font-weight: bold; }
-        #chat-log { height: 200px; overflow-y: scroll; border: 1px solid #333; padding: 10px; margin-top: 10px; }
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; }
+        .kilo-window { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #007aff; }
+        #chat { height: 200px; overflow-y: auto; margin-bottom: 10px; border-bottom: 1px solid #333; }
     </style>
 </head>
 <body>
-    <h1 class="matrix-glow">ARK-OS v1.0</h1>
-    <nav>
-        <button onclick="show('brainstorm')">BRAINSTORM</button>
-        <button onclick="show('execute')">EXECUTE</button>
-    </nav>
-
-    <div id="brainstorm" class="card">
-        <h3>Live Kilo: Brainstorm</h3>
-        <div id="chat-log"></div>
-        <input id="input" placeholder="Initiate input...">
-        <button onclick="saveChat()">SEND TO ARCHIVE</button>
+    <h1>Kilo Engine</h1>
+    <div class="kilo-window">
+        <div id="chat">
+            <div style="color: #007aff;">Kilo: Online. Architecture initialized. Awaiting your command, Founder.</div>
+        </div>
+        <input id="input" style="width: 70%; padding: 10px;" placeholder="Command Kilo...">
+        <button onclick="kiloExecute()">EXECUTE</button>
     </div>
 
     <script>
-        // SOVEREIGN STORAGE: Saves directly to your browser's private local storage
-        function saveChat() {
-            let msg = document.getElementById('input').value;
-            let log = document.getElementById('chat-log');
-            let timestamp = new Date().toLocaleTimeString();
-            let entry = `[${timestamp}] KILO: Acknowledged. Saving to ARK-Sovereign storage... ${msg}`;
+        function kiloExecute() {
+            let cmd = document.getElementById('input').value.toLowerCase();
+            let chat = document.getElementById('chat');
+            chat.innerHTML += `<div>Founder: ${cmd}</div>`;
             
-            log.innerHTML += `<div>${entry}</div>`;
-            localStorage.setItem('ARK_ARCHIVE', log.innerHTML);
+            // This is the native logic core
+            let response = "Kilo: Awaiting instructions on that specific Atom.";
+            if (cmd.includes("blueprint")) response = "Kilo: Blueprinting initiated. Structuring the 80/20 leverage points.";
+            if (cmd.includes("status")) response = "Kilo: All systems nominal. Security badge active. Kernel-44 is ready.";
+            
+            chat.innerHTML += `<div style="color: #007aff;">${response}</div>`;
             document.getElementById('input').value = '';
         }
-
-        // Load previous data on startup
-        window.onload = () => {
-            document.getElementById('chat-log').innerHTML = localStorage.getItem('ARK_ARCHIVE') || 'System Ready.';
-        };
     </script>
-    <!-- Inside the "Build" div in your index.html -->
-<div id="build" class="tab">
-    <h3>Blueprint Engine</h3>
-    <textarea id="idea" placeholder="Describe the venture..."></textarea>
-    <button onclick="executeBusiness()">Launch & Execute</button>
-</div>
-
-<script>
-    function executeBusiness() {
-        const idea = document.getElementById('idea').value;
-        // This is where I (Kilo) will pipe the code generation
-        console.log("EXECUTION TRIGGERED: " + idea);
-        alert("Initializing Business Atoms for: " + idea);
-        // The Kernel will now dynamically update the DOM with your business logic
-    }
-</script>
 </body>
 </html>
