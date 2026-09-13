@@ -2,40 +2,41 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Kilo Terminal</title>
+    <title>Kernel-44 | Live Kilo</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; display: flex; flex-direction: column; height: 90vh; }
-        #chat-stream { flex-grow: 1; overflow-y: auto; margin-bottom: 20px; font-size: 0.9rem; }
-        .kilo-msg { color: #00ff41; margin-bottom: 10px; }
-        .user-msg { color: #aaa; text-align: right; margin-bottom: 10px; }
-        input { width: 100%; padding: 12px; background: #111; border: 1px solid #333; color: #fff; border-radius: 8px; box-sizing: border-box; }
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
+        #chat-container { height: 70vh; overflow-y: scroll; border: 1px solid #333; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+        input { width: 70%; padding: 10px; border-radius: 6px; border: none; }
+        button { padding: 10px 20px; border-radius: 6px; border: none; background: #007aff; color: #fff; }
     </style>
 </head>
 <body>
-    <h2 style="font-size: 1rem; border-bottom: 1px solid #333;">KILO TERMINAL // OS-V1</h2>
-    <div id="chat-stream">
-        <div class="kilo-msg">Kilo: Architectural handshake complete. I am online. How shall we evolve the Kernel today?</div>
+    <h1>Kernel-44</h1>
+    <div id="chat-container">
+        <div style="color: #00ff41;">Kilo: OS Architect online. Blueprint status: Active.</div>
     </div>
-    <input id="terminal-input" placeholder="Enter command..." onkeydown="handle(event)">
+    <input id="user-input" placeholder="Architectural request...">
+    <button onclick="sendMessage()">Send</button>
 
     <script>
-        function handle(e) {
-            if (e.key === 'Enter') {
-                let input = document.getElementById('terminal-input');
-                let stream = document.getElementById('chat-stream');
-                
-                // Add user message
-                stream.innerHTML += `<div class="user-msg">${input.value}</div>`;
-                
-                // Kilo Logic (Hard-coded responses for offline stability)
-                let response = "Acknowledged. Updating architecture...";
-                if (input.value.toLowerCase().includes('blueprint')) response = "Blueprint stored in local state. Kilo-Verified.";
-                if (input.value.toLowerCase().includes('status')) response = "Status: Optimal. Atomic integrity at 99%.";
-                
-                stream.innerHTML += `<div class="kilo-msg">Kilo: ${response}</div>`;
-                input.value = '';
-                stream.scrollTop = stream.scrollHeight;
-            }
+        const API_KEY = "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";
+        
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const container = document.getElementById('chat-container');
+            container.innerHTML += `<div>Founder: ${input.value}</div>`;
+            
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: "gpt-4",
+                    messages: [{role: "system", content: "You are Kilo, the Architect. Keep it concise, creative, and technical. Always maintain the Kernel-44 persona."}, {role: "user", content: input.value}]
+                })
+            });
+            const data = await response.json();
+            container.innerHTML += `<div style="color:#00ff41">Kilo: ${data.choices[0].message.content}</div>`;
+            input.value = '';
         }
     </script>
 </body>
