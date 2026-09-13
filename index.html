@@ -1,24 +1,22 @@
-<!-- Kilo-Bridge Atom -->
-<div class="card" id="chat-interface">
+<!-- Add this section to your <body> -->
+<div class="card">
     <div class="agent-name">Kilo (Lead Engineer)</div>
-    <div id="chat-log" style="height: 150px; overflow-y: scroll; margin-bottom: 10px;"></div>
-    <input id="user-input" style="width: 70%;" placeholder="Ask Kilo for architecture updates...">
+    <div id="chat-stream" style="height: 150px; overflow-y: auto; font-size: 0.8rem; border: 1px solid #333; margin: 10px 0; padding: 5px;">
+        <div>Kilo: Systems online. Awaiting your directive.</div>
+    </div>
+    <input id="chat-input" placeholder="Consult Kilo..." style="width: 70%;">
     <button onclick="sendToKilo()">Send</button>
 </div>
 
 <script>
     async function sendToKilo() {
-        const input = document.getElementById('user-input');
-        const log = document.getElementById('chat-log');
-        log.innerHTML += `<div><b>Founder:</b> ${input.value}</div>`;
+        const input = document.getElementById('chat-input').value;
+        const stream = document.getElementById('chat-stream');
+        stream.innerHTML += `<div>You: ${input}</div>`;
         
-        // This connects to the backend proxy we will set up in Vercel
-        const response = await fetch('/api/kilo', {
-            method: 'POST',
-            body: JSON.stringify({ message: input.value })
-        });
-        const data = await response.json();
-        log.innerHTML += `<div><b>Kilo:</b> ${data.reply}</div>`;
-        input.value = '';
+        // This is where we will pipe your API key calls
+        // For now, it logs to console so you can see the connection
+        console.log("Sending to Kilo Architecture...", input);
+        document.getElementById('chat-input').value = '';
     }
 </script>
