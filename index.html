@@ -1,30 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Offline Core</title>
+    <title>Kernel-44 | Sovereign OS</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #000; color: #00ff41; padding: 20px; }
-        .card { background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333; margin-top: 10px; }
-        input { background: #000; color: #00ff41; border: 1px solid #333; padding: 10px; width: 100%; }
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; margin: 0; padding: 20px; }
+        .command-hub { border: 1px solid #333; padding: 15px; border-radius: 12px; background: #111; }
+        .log { height: 300px; overflow-y: auto; font-family: monospace; font-size: 0.85rem; color: #00ff41; margin-bottom: 10px; }
+        input { width: 100%; padding: 10px; background: #222; color: #fff; border: 1px solid #444; border-radius: 6px; }
     </style>
 </head>
 <body>
-    <h1>KILO-CORE v1.0</h1>
-    <div id="log" class="card">Awaiting Architectural Input...</div>
-    <div class="card">
-        <input id="input" placeholder="Type instructions to Kilo...">
-        <button onclick="process()">EXECUTE</button>
+    <h1>Kernel-44 [SOVEREIGN]</h1>
+    <div class="command-hub">
+        <div id="log" class="log">> System initialized in Sovereign Mode...<br></div>
+        <input id="input" placeholder="Enter command for Kilo..." onkeydown="handle(event)">
     </div>
 
     <script>
-        function process() {
-            let input = document.getElementById('input').value;
-            let log = document.getElementById('log');
-            // This logic allows you to "talk" to the system offline
-            let response = `ARCHITECTURAL LOG: Received "${input}". Awaiting system sync.`;
-            log.innerHTML = `<div>> ${input}</div><br><div>${response}</div>`;
-            document.getElementById('input').value = '';
+        function handle(e) {
+            if (e.key === 'Enter') {
+                let cmd = document.getElementById('input').value;
+                let log = document.getElementById('log');
+                log.innerHTML += `> Founder: ${cmd}<br>> Kilo: Executing ${cmd}... Logic archived.<br>`;
+                document.getElementById('input').value = '';
+                log.scrollTop = log.scrollHeight;
+            }
         }
     </script>
 </body>
