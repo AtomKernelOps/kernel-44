@@ -1,38 +1,80 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kernel-44 | Kilo Live</title>
+    <title>Kernel-44 | Master OS</title>
+    <title>Kernel-44 | AI Brain</title>
     <style>
+        :root { --accent: #007aff; --bg: #000; --panel: #111; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 20px; }
+        .master-card { background: var(--panel); border: 1px solid #333; padding: 20px; border-radius: 16px; margin-bottom: 20px; }
+        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        button { background: #222; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 8px; cursor: pointer; }
+        #kilo-chat { height: 250px; overflow-y: auto; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 10px; }
         body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; }
-        .kilo-window { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #007aff; }
-        #chat { height: 200px; overflow-y: auto; margin-bottom: 10px; border-bottom: 1px solid #333; }
+        .card { background: #111; padding: 15px; border-radius: 12px; border: 1px solid #333; margin-bottom: 10px; }
+        #stream { height: 300px; overflow-y: auto; padding: 10px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-    <h1>Kilo Engine</h1>
-    <div class="kilo-window">
-        <div id="chat">
-            <div style="color: #007aff;">Kilo: Online. Architecture initialized. Awaiting your command, Founder.</div>
+    <h1>Kernel-44 <span style="font-size: 0.8rem; color: #666;">v1.0.0</span></h1>
+    
+    <div class="master-card">
+        <h3>OS Core: Agentic Workforce</h3>
+        <div class="nav-grid">
+            <button onclick="updateDisplay('OPERATIONS')">OPS</button>
+            <button onclick="updateDisplay('STRATEGY')">STRATEGY</button>
+            <button onclick="updateDisplay('KILO')">KILO (ENG)</button>
+            <button onclick="updateDisplay('SYSTEM')">SYSTEM</button>
         </div>
-        <input id="input" style="width: 70%; padding: 10px;" placeholder="Command Kilo...">
-        <button onclick="kiloExecute()">EXECUTE</button>
+    <h1>Kernel-44 OS</h1>
+    <div id="stream" class="card">
+        <div><span style="color:#007aff">KILO:</span> System linked. Ready for input.</div>
+    </div>
+
+    <div class="master-card">
+        <h4 id="agent-title">KILO (ENG)</h4>
+        <div id="kilo-chat">
+            <p><strong>Kilo:</strong> The Master Brain is online. I have ingested the AI Company OS playbook. I am ready to architect your reality. What is our first strategic objective, Founder?</p>
+        </div>
+    <div class="card">
+        <input id="prompt" style="width: 70%; padding: 10px; background:#000; color:#fff; border:1px solid #444;" placeholder="Message the Kernel...">
+        <button onclick="askBrain()">Send</button>
     </div>
 
     <script>
-        function kiloExecute() {
-            let cmd = document.getElementById('input').value.toLowerCase();
-            let chat = document.getElementById('chat');
-            chat.innerHTML += `<div>Founder: ${cmd}</div>`;
+        const knowledge = {
+            OPERATIONS: "Executing workflow automation. Optimizing for 80/20 leverage.",
+            STRATEGY: "Analyzing venture-scale growth metrics. Positioning for maximum asset realization.",
+            KILO: "Architectural integrity maintained. I am your Lead Engineer. We are currently in 'Seed' deployment mode.",
+            SYSTEM: "Kernel-44 heartbeat: Stable. Atomic modules: Ready."
+        };
+
+        function updateDisplay(agent) {
+            document.getElementById('agent-title').innerText = agent;
+            document.getElementById('kilo-chat').innerHTML = `<p><strong>${agent}:</strong> ${knowledge[agent]}</p>`;
+        async function askBrain() {
+            const input = document.getElementById('prompt').value;
+            const stream = document.getElementById('stream');
+            stream.innerHTML += `<div><span style="color:#ff9500">YOU:</span> ${input}</div>`;
             
-            // This is the native logic core
-            let response = "Kilo: Awaiting instructions on that specific Atom.";
-            if (cmd.includes("blueprint")) response = "Kilo: Blueprinting initiated. Structuring the 80/20 leverage points.";
-            if (cmd.includes("status")) response = "Kilo: All systems nominal. Security badge active. Kernel-44 is ready.";
+            // This is a free public inference gateway
+            const response = await fetch('https://text.pollinations.ai/' + encodeURIComponent(input));
+            const data = await response.text();
             
-            chat.innerHTML += `<div style="color: #007aff;">${response}</div>`;
-            document.getElementById('input').value = '';
+            stream.innerHTML += `<div><span style="color:#00ff41">BRAIN:</span> ${data}</div>`;
+            document.getElementById('prompt').value = '';
         }
     </script>
+    <div id="matrix" class="tab">
+    <h3>Second Brain: Knowledge Matrix</h3>
+    <div id="matrix-status" class="card">
+        <p><strong>Status:</strong> Active</p>
+        <p><strong>Content:</strong> AI Company OS Playbook loaded.</p>
+        <button onclick="syncKnowledge()">Re-index Matrix</button>
+    </div>
+</div>
 </body>
 </html>
