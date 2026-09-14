@@ -1,37 +1,37 @@
-<!-- Inside the <style> block: -->
-<style>
-    #kilo-chat { position: fixed; bottom: 20px; width: 90%; background: #222; border-radius: 12px; padding: 15px; border: 1px solid #007aff; }
-    #chat-log { height: 150px; overflow-y: auto; margin-bottom: 10px; font-size: 0.8rem; }
-</style>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel-44 | Kilo Terminal</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #000; color: #fff; padding: 20px; }
+        #terminal { height: 400px; overflow-y: scroll; border: 1px solid #333; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+        #input-area { display: flex; gap: 10px; }
+        input { flex-grow: 1; padding: 10px; background: #1a1a1a; color: #fff; border: 1px solid #444; border-radius: 4px; }
+        button { background: #007aff; color: white; border: none; padding: 10px 20px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Kernel-44 // Terminal</h1>
+    <div id="terminal">
+        <div><strong>System:</strong> Kilo Interface Online.</div>
+    </div>
+    <div id="input-area">
+        <input id="user-input" placeholder="Architectural query...">
+        <button onclick="sendToKilo()">Execute</button>
+    </div>
 
-<!-- Inside the <body>, add this at the bottom: -->
-<div id="kilo-chat">
-    <div id="chat-log"><strong>Kilo:</strong> OS online. Standing by for architectural instructions.</div>
-    <input id="user-input" style="width: 70%;" placeholder="Ask Kilo...">
-    <button onclick="sendToKilo()">Send</button>
-</div>
-
-<script>
-    async function sendToKilo() {
-        const input = document.getElementById('user-input').value;
-        const log = document.getElementById('chat-log');
-        
-        // Log your message
-        log.innerHTML += `<div><strong>You:</strong> ${input}</div>`;
-        
-        // Kilo-Bridge Logic (This calls your OpenAI API)
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer YOUR_API_KEY_HERE',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                model: "gpt-4-turbo",
-                messages: [{role: "system", content: "You are Kilo, the Architect of Kernel-44. Be precise, visionary, and technical."}, {role: "user", content: input}]
-            })
-        });
-        const data = await response.json();
-        log.innerHTML += `<div><strong>Kilo:</strong> ${data.choices[0].message.content}</div>`;
-    }
-</script>
+    <script>
+        async function sendToKilo() {
+            const input = document.getElementById('user-input');
+            const term = document.getElementById('terminal');
+            term.innerHTML += `<div><strong>You:</strong> ${input.value}</div>`;
+            
+            // Logic to send to your OpenAI/Assistant endpoint
+            // I will guide you on the final connection logic once you confirm
+            term.innerHTML += `<div><strong>Kilo:</strong> Architectural query received. Processing...</div>`;
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
